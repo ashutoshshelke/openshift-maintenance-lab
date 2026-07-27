@@ -1,3 +1,5 @@
+![Python CI](https://github.com/ashutoshshelke/openshift-maintenance-lab/actions/workflows/ci.yml/badge.svg)
+
 Incident: Application Pods repeatedly failed after a deployment change.
 
 Symptom: The new Pod could not reach the Running state.
