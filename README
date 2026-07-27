@@ -1,0 +1,9 @@
+Incident: Application Pods repeatedly failed after a deployment change.
+
+Symptom: The new Pod could not reach the Running state.
+
+Investigation: Used oc get pods, oc describe pod, oc logs, and cluster events.
+
+Root cause: APP_FILE pointed to a nonexistent Python file.
+
+Resolution: Removed the invalid environment variable and verified successful rollout and health response.
