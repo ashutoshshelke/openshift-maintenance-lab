@@ -44,5 +44,15 @@ def divide():
         return jsonify(error="Parameters must be valid numbers"), 400
 
 
+@app.get("/items")
+def items():
+    limit = int(request.args.get("limit", "10"))
+
+    return jsonify(
+        limit=limit,
+        message=f"Returning up to {limit} items",
+    )
+
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080)
