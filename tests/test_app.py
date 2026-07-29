@@ -44,3 +44,24 @@ def test_divide_rejects_invalid_input(client):
 
     assert response.status_code == 400
     assert response.get_json()["error"] == "Parameters must be valid numbers"
+
+
+def test_items_uses_requested_limit(client):
+    response = client.get("/items?limit=20")
+
+    assert response.status_code == 200
+    assert response.get_json()["limit"] == 20
+
+
+def test_items_rejects_invalid_limit(client):
+    response = client.get("/items?limit=invalid")
+
+    assert response.status_code == 400
+    assert response.get_json()["error"] == "Limit must be an integer"
+
+
+def test_items_rejects_out_of_range_limit(client):
+    response = client.get("/items?limit=500")
+
+    assert response.status_code == 400
+    assert response.get_json()["error"] == "Limit must be between 1 and 100"

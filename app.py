@@ -46,7 +46,23 @@ def divide():
 
 @app.get("/items")
 def items():
-    limit = int(request.args.get("limit", "10"))
+    raw_limit = request.args.get("limit", "10")
+
+    try:
+        limit = int(raw_limit)
+    except ValueError:
+        logger.warning("Invalid item limit received: %s", raw_limit)
+
+        return jsonify(
+            error="Limit must be an integer",
+        ), 400
+
+    if not 1 <= limit <= 100:
+        logger.warning("Out-of-range item limit received: %s", limit)
+
+        return jsonify(
+            error="Limit must be between 1 and 100",
+        ), 400
 
     return jsonify(
         limit=limit,
